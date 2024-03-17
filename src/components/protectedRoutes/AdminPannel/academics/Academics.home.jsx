@@ -1,5 +1,5 @@
 import React from "react";
-import AdminNavbar from "../home/AdminNavbar";
+import AdminNavbar from "../adminNavbar/AdminNavbar";
 
 const Academics = () => {
   const datas = [
@@ -40,17 +40,17 @@ const Academics = () => {
   };
 
   return (
-    <div className=" h-screen bg-green-200">
+    <div className="pb-11 h-full bg-green-200">
       <div>
         <AdminNavbar />
       </div>
 
-      <div className="px-10 flex flex-wrap  ">
+      <div className=" justify-center flex flex-wrap  ">
         {datas.map((data, i) => (
           <div
             key={i}
             onClick={() => handleClick(data.title)}
-            className={`h-52 w-[320px] bg-slate-200 hover:bg-white mx-16 my-12 border-[1px] border-b-[20px] border-${data.color}-500  rounded-2xl flex flex-col items-center justify-around hover:transform hover:scale-110    transition-all duration-500 ease-in-out cursor-pointer`}
+            className={`h-52 w-[320px] bg-slate-200 hover:bg-white mx-10 my-6  md:mx-16 md:my-12 border-[1px] border-b-[20px] border-${data.color}-500  rounded-2xl flex flex-col items-center justify-around hover:transform hover:scale-110    transition-all duration-500 ease-in-out cursor-pointer`}
           >
             <i
               className={`fa-solid  ${data.logo} w-28 text-center p-5 bg-${data.color}-500 text-[60px] rounded-full `}

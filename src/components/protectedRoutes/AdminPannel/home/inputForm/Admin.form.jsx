@@ -1,7 +1,8 @@
 import React from "react";
 
 function NewAdminInput(props) {
-  const { setFormData, formData, handleSubmit, user } = props;
+  const { setFormData, formData, handleSubmit } = props;
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -16,7 +17,6 @@ function NewAdminInput(props) {
         className="bg-pink-200 p-5 md:p-8 rounded shadow-md w-76 md:w-96 "
         onSubmit={(e) => handleSubmit(e)}
       >
-        {user}{" "}
         <h2 className="text-2xl underline font-semibold mb-4">Add NEW ADMIN</h2>
         <div className="mb-4">
           <label

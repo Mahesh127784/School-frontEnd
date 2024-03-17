@@ -1,20 +1,19 @@
 import React from "react";
 import InfoCard from "./adminHomeDashboard/InfoCard";
-import StudentsTable from "../fetchMembersData/StudentsTable";
-import TeachersTable from "../fetchMembersData/TeachersTable";
-import AdminsTable from "../fetchMembersData/AdminsTable";
+import StudentsTable from "./fetchMembersData/StudentsTable.jsx";
+import TeachersTable from "./fetchMembersData/TeachersTable.jsx";
+import AdminsTable from "./fetchMembersData/AdminsTable.jsx";
 import { useSelector } from "react-redux";
-import AdminNavbar from "./AdminNavbar";
+import AdminNavbar from "../adminNavbar/AdminNavbar.jsx";
 
 function AdminDashboard() {
   const { students, student } = useSelector((state) => state.students);
   const { teachers, teacher } = useSelector((state) => state.teachers);
   const { admin } = useSelector((state) => state.admins);
-  console.log(teachers);
   return (
     <div className="w-full pb-14 ">
       <AdminNavbar />
-      <div className=" flex justify-evenly flex-wrap h-fit md:gap-2 ">
+      <div className=" flex justify-evenly flex-wrap h-fit gap-2 ">
         <InfoCard
           title="Total Students"
           count={students.length}

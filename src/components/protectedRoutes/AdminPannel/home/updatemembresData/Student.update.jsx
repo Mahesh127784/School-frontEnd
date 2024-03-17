@@ -1,44 +1,48 @@
 import React, { useState } from "react";
 import NewUserInput from "../inputForm/NewUserInput.form";
 import axios from "axios";
-import { updateTeacher } from "../../../../redux/features/teachers/teachersSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { updateStudent } from "../../../../../redux/features/students/studentsSlice";
 import { useNavigate } from "react-router-dom";
-import handleApiError from "../../../../utils/errorHandler/ApiErrors";
+import handleApiError from "../../../../../utils/errorHandler/ApiErrors";
 const apiKey = process.env.REACT_APP_API_KEY;
 
-export default function UpdateTeacher() {
+export default function UpdateStudent() {
+  let { updatingStudent } = useSelector((state) => state.students);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  let { updatingTeacher } = useSelector((state) => state.teachers);
-  if (!updatingTeacher) {
-    updatingTeacher = {
-      teacherName: "",
-      teacherId: "",
-      subject: "",
-      contactNumber: "",
+
+  if (!updatingStudent) {
+    updatingStudent = {
+      studentName: "",
+      studentId: "",
+      Class: "",
+      DOB: "",
+      parentContact: "",
       _id: "",
     };
   }
-  const { teacherName, teacherId, subject, contactNumber, _id } =
-    updatingTeacher;
+  const { studentName, studentId, Class, DOB, parentContact, _id } =
+    updatingStudent;
   const [formData, setFormData] = useState({
-    userName: teacherName,
-    userId: teacherId,
-    subject,
-    contact: contactNumber,
+    userName: studentName,
+    userId: studentId,
+    Class,
+    DOB: DOB?.slice(0, 10),
+    contact: parentContact,
   });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const response = await axios.put(
-        `${apiKey}/teachers/changedata/${_id}`,
+        `${apiKey}/students/changedata/${_id}`,
         formData
       );
-      dispatch(updateTeacher(response.data.data));
+      dispatch(updateStudent(response.data.data));
       navigate("/adminHome");
       alert(response.data.message);
-
       // Reset the form after submission
     } catch (error) {
       handleApiError(error);
@@ -50,7 +54,7 @@ export default function UpdateTeacher() {
       formData={formData}
       setFormData={setFormData}
       handleSubmit={handleSubmit}
-      user={"TEACHER"}
+      user={"STUDENT"}
     />
   );
 }

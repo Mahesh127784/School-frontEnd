@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { updateAdmin } from "../../../../redux/features/admins/adminsSlice";
+import { updateAdmin } from "../../../../../redux/features/admins/adminsSlice";
 import React, { useState } from "react";
 import NewAdminInput from "../inputForm/Admin.form";
 import axios from "axios";
-import handleApiError from "../../../../utils/errorHandler/ApiErrors";
+import handleApiError from "../../../../../utils/errorHandler/ApiErrors";
 const apiKey = process.env.REACT_APP_API_KEY;
 
 export default function UpdateAdmin() {
@@ -21,13 +21,11 @@ export default function UpdateAdmin() {
       _id: "",
     };
   }
-  const { adminName, adminCode, email, password, _id } = updatingAdmin;
+  const { adminName, adminCode, email, _id } = updatingAdmin;
   const [formData, setFormData] = useState({
     adminName,
     adminCode,
     email,
-    // password,
-    // password2: password,
   });
 
   const handleSubmit = async (e) => {

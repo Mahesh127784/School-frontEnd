@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
-import Calendar from "../home/adminHomeDashboard/Calender";
+import Calendar from "../adminHomeDashboard/Calender.jsx";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   deleteAdmin,
   fetchAdmin,
   updateAdmin,
-} from "../../../../redux/features/admins/adminsSlice";
-import RemoveMember from "../../../../apis/removeMembers/RemoveMember";
+} from "../../../../../redux/features/admins/adminsSlice";
+import RemoveMember from "../../../../../apis/removeMembers/RemoveMember";
 import AdminsList from "./tableLists/AdminsList";
-import { getAllUsers } from "../../../../apis/getUsersData/allUsersData";
+import { getAllUsers } from "../../../../../apis/getUsersData/allUsersData";
 
 function AdminsTable() {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ function AdminsTable() {
     <div className="md:flex gap-10 flex-wrap">
       <AdminsList members={admins} deleteUser={Delete} updateUser={Edit} />
       <div className="w-full lg:w-[400px] flex  items-center justify-center">
-        <div className=" md:mt-12 mx-center">
+        <div className=" md:mt-12 mx-center m-15">
           <Calendar />
         </div>
       </div>

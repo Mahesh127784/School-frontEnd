@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
-import Calendar from "../home/adminHomeDashboard/Calender.jsx";
+import Calendar from "../adminHomeDashboard/Calender.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchStudent,
   deleteStudent,
   updateStudent,
-} from "../../../../redux/features/students/studentsSlice.js";
-import RemoveMember from "../../../../apis/removeMembers/RemoveMember.js";
+} from "../../../../../redux/features/students/studentsSlice.js";
+import RemoveMember from "../../../../../apis/removeMembers/RemoveMember.js";
 import { useNavigate } from "react-router-dom";
 import StudentsList from "./tableLists/StudentsList.jsx";
-import { getAllUsers } from "../../../../apis/getUsersData/allUsersData.js";
+import { getAllUsers } from "../../../../../apis/getUsersData/allUsersData.js";
 
 function StudentsTable() {
   const dispatch = useDispatch();

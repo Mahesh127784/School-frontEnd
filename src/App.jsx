@@ -9,17 +9,19 @@ import Navbar from "./components/publicRoutes/Navbar";
 import AdmissionForm from "./components/publicRoutes/AdmissionForm.jsx";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AdminHome from "./components/protectedRoutes/AdminPannel/home/Home.admin.jsx";
-import NewStudent from "./components/protectedRoutes/AdminPannel/newMembersEntryForm/Student.new.jsx";
-import NewTeacher from "./components/protectedRoutes/AdminPannel/newMembersEntryForm/Teacher.new.jsx";
-import NewAdmin from "./components/protectedRoutes/AdminPannel/newMembersEntryForm/Admin.new.jsx";
-import UpdateStudent from "./components/protectedRoutes/AdminPannel/updatemembresData/Student.update.jsx";
-import UpdateTeacher from "./components/protectedRoutes/AdminPannel/updatemembresData/Teacher.update.jsx";
-import UpdateAdmin from "./components/protectedRoutes/AdminPannel/updatemembresData/Admin.update.jsx";
+import NewStudent from "./components/protectedRoutes/AdminPannel/home/newMembersEntryForm/Student.new.jsx";
+import NewTeacher from "./components/protectedRoutes/AdminPannel/home/newMembersEntryForm/Teacher.new.jsx";
+import NewAdmin from "./components/protectedRoutes/AdminPannel/home/newMembersEntryForm/Admin.new.jsx";
+import UpdateStudent from "./components/protectedRoutes/AdminPannel/home/updatemembresData/Student.update.jsx";
+import UpdateTeacher from "./components/protectedRoutes/AdminPannel/home/updatemembresData/Teacher.update.jsx";
+import UpdateAdmin from "./components/protectedRoutes/AdminPannel/home/updatemembresData/Admin.update.jsx";
 import StudentsHome from "./components/protectedRoutes/StudentsPannel/home/Home.students.jsx";
 import TeachersHome from "./components/protectedRoutes/TeachersPannel/home/Home.teachers.jsx";
 import UsersRoutsSecurity from "./components/protectedRoutes/usersRoutsSecurity.jsx";
-import Academics from "./components/protectedRoutes/AdminPannel/academics/Academics.home.jsx";
-import UserProfile from "./components/protectedRoutes/AdminPannel/home/userprofile/UserProfile.jsx";
+import Academics from "./components/protectedRoutes/CommonPages/routerSecurity/usersRoutsSecurity.jsx";
+import UserProfile from "./components/protectedRoutes/CommonPages/userprofile/UserProfile.jsx";
+import Notifications from "./components/protectedRoutes/AdminPannel/notifications/Notifications.home.jsx";
+import Help from "./components/protectedRoutes/CommonPages/help/Help.home.jsx";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -133,6 +135,26 @@ function App() {
                 <UsersRoutsSecurity
                   userRole={"Admin"}
                   Component={Academics}
+                  setIsLoggedIn={setIsLoggedIn}
+                />
+              }
+            />
+            <Route
+              path="/notifications"
+              element={
+                <UsersRoutsSecurity
+                  userRole={"Admin"}
+                  Component={Notifications}
+                  setIsLoggedIn={setIsLoggedIn}
+                />
+              }
+            />
+            <Route
+              path="/help"
+              element={
+                <UsersRoutsSecurity
+                  userRole={"Admin"}
+                  Component={Help}
                   setIsLoggedIn={setIsLoggedIn}
                 />
               }

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import NewUserInput from "../inputForm/NewUserInput.form";
 import axios from "axios";
-import { addTeacher } from "../../../../redux/features/teachers/teachersSlice";
+import { addTeacher } from "../../../../../redux/features/teachers/teachersSlice";
 import { useDispatch } from "react-redux";
-import handleApiError from "../../../../utils/errorHandler/ApiErrors";
+import handleApiError from "../../../../../utils/errorHandler/ApiErrors";
 
 const apiKey = process.env.REACT_APP_API_KEY;
 

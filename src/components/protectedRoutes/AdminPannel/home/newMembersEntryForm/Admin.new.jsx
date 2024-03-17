@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import NewAdminInput from "../inputForm/Admin.form";
 import axios from "axios";
-import handleApiError from "../../../../utils/errorHandler/ApiErrors";
+import handleApiError from "../../../../../utils/errorHandler/ApiErrors";
 
 const apiKey = process.env.REACT_APP_API_KEY;
 

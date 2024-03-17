@@ -1,9 +1,10 @@
 import React, { useRef, useState } from "react";
-import AdminNavbar from "../AdminNavbar";
+import AdminNavbar from "../AdminPannel/adminNavbar/AdminNavbar";
 import { useDispatch, useSelector } from "react-redux";
-import userImageUpload from "../../../../../apis/profilePhotoUploading/UserImageUpload";
-import { updateUser } from "../../../../../redux/features/user/userSlice";
-import handleApiError from "../../../../../utils/errorHandler/ApiErrors";
+import userImageUpload from "../../../apis/profilePhotoUploading/UserImageUpload";
+import { updateUser } from "../../../redux/features/user/userSlice";
+import handleApiError from "../../../utils/errorHandler/ApiErrors";
+import ToggleAndHeading from "./ToggleAndHeading";
 
 const UserProfile = ({ logout }) => {
   const [file, setFile] = useState(null);
@@ -29,19 +30,13 @@ const UserProfile = ({ logout }) => {
     }
   };
   return (
-    <div className="bg-green-200 h-screen">
+    <div className="bg-green-200 h-screen md:h-full md:pb-10">
       <AdminNavbar />
-      <div className="  m-auto rounded-2xl bg-white w-[800px] py-5 ">
-        <div className=" flex justify-between mb-5">
-          <div></div>
-          <h2 className="  text-3xl font-bold text-center underline ml-8">
-            Admin Profile
-          </h2>
-          <i class="fa-solid fa-bars p-2 bg-gray-200 text-2xl rounded-md border-[2px]  border-gray-300 hover:bg-gray-300 cursor-pointer mr-5 "></i>
-        </div>
+      <div className="  m-auto rounded-2xl bg-white w-64 md:w-[500px] lg:w-[800px] py-5 ">
+        <ToggleAndHeading logout={logout} />
         <div className=" flex flex-col  items-center   ">
           <img
-            className="w-72 h-72 object-cover rounded-full"
+            className=" w-40 h-44 md:w-72 md:h-[335px] object-cover rounded-full"
             src={user?.adminImage}
             alt=""
           />
@@ -49,7 +44,10 @@ const UserProfile = ({ logout }) => {
             {userName.map((key, i) => {
               if (i === 1 || i === 4 || i === 3)
                 return (
-                  <div key={i} className=" font-bold text-xl m-5">
+                  <div
+                    key={i}
+                    className=" md:font-bold font-semibold text-sm md:text-xl m-5"
+                  >
                     {userName[i]?.toUpperCase()} :-{" "}
                     <span className="text-red-700 font-semibold ">
                       {user[userName[i]]}
@@ -58,33 +56,28 @@ const UserProfile = ({ logout }) => {
                 );
             })}
           </div>
-          <div>
-            <form ref={formRef} className="inline" onSubmit={handleSubmit}>
-              <label className=" font-semibold">
+          <form ref={formRef} className="inline px-2" onSubmit={handleSubmit}>
+            <div className="pl-5 md:inline">
+              <label className=" text-[12px] md:text-base font-semibold">
                 Change Display Picture :-
               </label>
 
               <input
-                className=" w-56"
+                className=" text-[12px] md:text-base  md:ml-0 md:w-56 "
                 type="file"
                 onChange={(e) => setFile(e.target.files[0])}
               />
-
+            </div>
+            <div className=" lg:inline text-center">
               <button
-                className="bg-green-500 hover:bg-green-700 font-semibold p-1 px-3 text-white rounded-md"
+                className="bg-green-500 hover:bg-green-700 md:font-semibold py-[2px] md:py-1 px-1  md:px-3 text-white rounded-md mt-5"
                 disabled={!file}
                 type="submit"
               >
                 Upload
               </button>
-            </form>
-            <button
-              onClick={logout}
-              className="rounded-md mt-5 mb-3 p-1 px-2 font-semibold  text-white bg-red-500 hover:bg-red-700 ml-10 "
-            >
-              Logout
-            </button>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>

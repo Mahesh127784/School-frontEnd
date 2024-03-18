@@ -1,5 +1,5 @@
 import React from "react";
-import AdminNavbar from "../AdminPannel/adminNavbar/AdminNavbar";
+import AdminNavbar from "../../AdminPannel/adminNavbar/AdminNavbar";
 import { Link } from "react-router-dom";
 
 function Help() {

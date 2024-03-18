@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
-import AdminNavbar from "../AdminPannel/adminNavbar/AdminNavbar";
+import AdminNavbar from "../../AdminPannel/adminNavbar/AdminNavbar";
 import { useDispatch, useSelector } from "react-redux";
-import userImageUpload from "../../../apis/profilePhotoUploading/UserImageUpload";
-import { updateUser } from "../../../redux/features/user/userSlice";
-import handleApiError from "../../../utils/errorHandler/ApiErrors";
+import userImageUpload from "../../../../apis/profilePhotoUploading/UserImageUpload";
+import { updateUser } from "../../../../redux/features/user/userSlice";
+import handleApiError from "../../../../utils/errorHandler/ApiErrors";
 import ToggleAndHeading from "./ToggleAndHeading";
 
 const UserProfile = ({ logout }) => {

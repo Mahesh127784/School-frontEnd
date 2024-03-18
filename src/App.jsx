@@ -17,7 +17,7 @@ import UpdateTeacher from "./components/protectedRoutes/AdminPannel/home/updatem
 import UpdateAdmin from "./components/protectedRoutes/AdminPannel/home/updatemembresData/Admin.update.jsx";
 import StudentsHome from "./components/protectedRoutes/StudentsPannel/home/Home.students.jsx";
 import TeachersHome from "./components/protectedRoutes/TeachersPannel/home/Home.teachers.jsx";
-import UsersRoutsSecurity from "./components/protectedRoutes/usersRoutsSecurity.jsx";
+import UsersRoutsSecurity from "./components/protectedRoutes/CommonPages/routerSecurity/usersRoutsSecurity.jsx";
 import Academics from "./components/protectedRoutes/CommonPages/routerSecurity/usersRoutsSecurity.jsx";
 import UserProfile from "./components/protectedRoutes/CommonPages/userprofile/UserProfile.jsx";
 import Notifications from "./components/protectedRoutes/AdminPannel/notifications/Notifications.home.jsx";

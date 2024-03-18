@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import AuthByRefreshToken from "../../../utils/UserAuth";
+import AuthByRefreshToken from "../../../../utils/UserAuth";
 import { useNavigate } from "react-router-dom";
-import { UserAuthentication } from "../../../apis/handleAuthorization/HandleAuth";
-import { UsersLogout } from "../../../apis/handle_Login_Logout/HandleLoginLogout";
+import { UserAuthentication } from "../../../../apis/handleAuthorization/HandleAuth";
+import { UsersLogout } from "../../../../apis/handle_Login_Logout/HandleLoginLogout";
 import { useDispatch } from "react-redux";
-import { updateUser } from "../../../redux/features/user/userSlice";
+import { updateUser } from "../../../../redux/features/user/userSlice";
 
 const UsersRoutsSecurity = ({ userRole, setIsLoggedIn, Component }) => {
   const navigate = useNavigate();

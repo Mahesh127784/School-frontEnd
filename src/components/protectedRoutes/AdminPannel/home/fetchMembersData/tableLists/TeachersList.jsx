@@ -1,4 +1,5 @@
 import React from "react";
+import DeleteUser from "./deleteUser/DeleteUser";
 
 function TeachersList({ members, deleteUser, updateUser }) {
   return (
@@ -22,16 +23,13 @@ function TeachersList({ members, deleteUser, updateUser }) {
               <td className="p-1 md:p-2 border-b">{member.teacherName}</td>
               <td className="p-1 md:p-2 border-b">{member.teacherId}</td>
               <td className="p-1 md:p-2 border-b">{member.subject}</td>
-              <td className="p-1 md:p-2 border-b">{member.contactNumber}</td>
+              <td className="p-1 md:p-2 border-b">{member.contact}</td>
               <td className="text-[10px] md:text-base lg:text-[18px]  p-1 md:p-2 border-b ">
                 <i
                   onClick={() => updateUser(member)}
                   className="fa-solid fa-user-pen mr-2 text-green-300 cursor-pointer hover:transform hover:scale-125 transition-all duration-300 ease-in-out "
                 ></i>
-                <i
-                  onClick={() => deleteUser(member._id)}
-                  className="fa-solid fa-trash-can ml-2 text-orange-300 cursor-pointer hover:transform hover:scale-125    transition-all duration-300 ease-in-out "
-                ></i>
+                <DeleteUser deleteUser={deleteUser} member={member} />
               </td>
             </tr>
           ))}

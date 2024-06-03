@@ -1,50 +1,64 @@
 import React, { useState } from "react";
-import NewUserInput from "../inputForm/NewUserInput.form";
-import axios from "axios";
 import { addStudent } from "../../../../../redux/features/students/studentsSlice";
 import { useDispatch } from "react-redux";
 import handleApiError from "../../../../../utils/errorHandler/ApiErrors";
-const apiKey = process.env.REACT_APP_API_KEY;
+import { toast } from "react-toastify";
+import UserForm from "../inputForm/userform/UserForm.jsx";
+import { newStudent } from "../../../../../apis/newMemberEntry/newMemberEntry.js";
 
 const AddNewStudent = () => {
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
-    userName: "",
-    userId: "",
-    Class: "",
-    DOB: "",
+    firstName: "",
+    lastName: "",
     contact: "",
+    address: "",
+    DOB: "",
+    guardianName: "",
+    guardianPhone: "",
+    enrollmentDate: "",
+    Class: "",
+    section: "",
+    userId: "",
   });
 
   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
 
     try {
-      const response = await axios.post(
-        `${apiKey}/students/newStudent`,
-        formData
-      );
-      const student = response.data.data;
-      dispatch(addStudent(student));
-      alert(response.data.message);
+      const response = await newStudent(formData);
+
+      dispatch(addStudent(response.data));
+      toast.success(response.message);
       // Reset the form after submission
       setFormData({
-        userName: "",
-        userId: "",
-        Class: "",
-        DOB: "",
+        firstName: "",
+        lastName: "",
         contact: "",
+        address: "",
+        DOB: "",
+        guardianName: "",
+        guardianPhone: "",
+        enrollmentDate: "",
+        section: "",
+        Class: "",
+        userId: "",
       });
     } catch (error) {
       handleApiError(error);
+    } finally {
+      setSubmitting(false);
     }
   };
   return (
-    <NewUserInput
+    <UserForm
       formData={formData}
       setFormData={setFormData}
       handleSubmit={handleSubmit}
-      user={"STUDENT"}
+      user={"Student"}
+      loading={submitting}
     />
   );
 };

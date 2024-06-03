@@ -1,43 +1,52 @@
 import React, { useRef, useState } from "react";
-import AdminNavbar from "../../AdminPannel/adminNavbar/AdminNavbar";
 import { useDispatch, useSelector } from "react-redux";
 import userImageUpload from "../../../../apis/profilePhotoUploading/UserImageUpload";
 import { updateUser } from "../../../../redux/features/user/userSlice";
 import handleApiError from "../../../../utils/errorHandler/ApiErrors";
 import ToggleAndHeading from "./ToggleAndHeading";
+import {
+  AdminNavbar,
+  StudentNavbar,
+  TeacherNavbar,
+} from "../userNavbar/UserNavbar";
 
 const UserProfile = ({ logout }) => {
   const [file, setFile] = useState(null);
-
+  const [submitting, setSubmitting] = useState(false);
   const formRef = useRef(null);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
 
-  if (!user || Object.keys(user).length === 0) {
+  const userName = Object.keys(user);
+  if (!user || userName.length === 0) {
     return <div>Loading...</div>;
   }
-  const userName = Object.keys(user);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await userImageUpload({ file });
+      setSubmitting(true);
+      const response = await userImageUpload({ file }, "admins");
       dispatch(updateUser(response));
       setFile(null);
       formRef.current.reset();
     } catch (error) {
       handleApiError(error);
+    } finally {
+      setSubmitting(false);
     }
   };
   return (
     <div className="bg-green-200 h-screen md:h-full md:pb-10">
-      <AdminNavbar />
+      {!user.user && <AdminNavbar />}
+      {user.user === "Student" && <StudentNavbar />}
+      {user.user === "Teacher" && <TeacherNavbar />}
       <div className="  m-auto rounded-2xl bg-white w-64 md:w-[500px] lg:w-[800px] py-5 ">
-        <ToggleAndHeading logout={logout} />
+        <ToggleAndHeading logout={logout} userName={user.user} />
         <div className=" flex flex-col  items-center   ">
           <img
             className=" w-40 h-44 md:w-72 md:h-[335px] object-cover rounded-full"
-            src={user?.adminImage}
+            src={user?.adminImage || user.userImage}
             alt=""
           />
           <div>
@@ -71,10 +80,10 @@ const UserProfile = ({ logout }) => {
             <div className=" lg:inline text-center">
               <button
                 className="bg-green-500 hover:bg-green-700 md:font-semibold py-[2px] md:py-1 px-1  md:px-3 text-white rounded-md mt-5"
-                disabled={!file}
+                disabled={!file || submitting}
                 type="submit"
               >
-                Upload
+                {submitting ? "Uploading..." : "Upload"}
               </button>
             </div>
           </form>

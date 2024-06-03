@@ -1,16 +1,20 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 const apiKey = process.env.REACT_APP_API_KEY;
 axios.defaults.withCredentials = true;
 
+async function UserSignup(creds) {
+  await axios.post(`${apiKey}/users/register`, creds);
+}
 async function AdminLogin(creds) {
   const response = await axios.post(`${apiKey}/admins/adminLogin`, creds);
-  alert("Login successfull");
+  toast.success("Login successfull");
   return response.data;
 }
 
 async function UserLogin(creds) {
   const response = await axios.post(`${apiKey}/users/login`, creds);
-  alert("Login successfull");
+  toast.success("Login successfull");
   return response.data;
 }
 
@@ -19,4 +23,4 @@ async function UsersLogout() {
   localStorage.removeItem("tokens");
 }
 
-export { AdminLogin, UserLogin, UsersLogout };
+export { UserSignup, AdminLogin, UserLogin, UsersLogout };

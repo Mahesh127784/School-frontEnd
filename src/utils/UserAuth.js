@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { tokensRefresher } from "../apis/handleAuthorization/HandleAuth";
 
 const AuthByRefreshToken = async (refreshToken) => {
@@ -5,7 +6,7 @@ const AuthByRefreshToken = async (refreshToken) => {
 
   if (!refreshToken) {
     // no tokens stored in the localStoarge
-    console.log("No refresh token found");
+    toast.error("No refresh token found");
 
     return false;
   } else {
@@ -21,7 +22,7 @@ const AuthByRefreshToken = async (refreshToken) => {
       return newTokens;
     } catch (error) {
       //if the user contains expired refreshtoken
-      console.log(error.response?.data?.message);
+      toast.error(error.response?.data?.message);
       // Remove expired token from localStorage
       localStorage.removeItem("tokens");
 

@@ -9,7 +9,6 @@ function Navbar({ setLogger }) {
     setToggle(false);
     setToggle2(true);
   };
-  const handleLogoutClick = () => {};
 
   return (
     <>
@@ -129,13 +128,6 @@ function Navbar({ setLogger }) {
           >
             Signup
           </Link>
-          <button
-            hidden={true}
-            onClick={handleLogoutClick}
-            className="h-fit bg-red-700 text-white px-3 py-1 text-sm  md:text-[17px] font-bold md:py-2 md:px-4 rounded-xl hover:bg-green-600  "
-          >
-            Logout
-          </button>
         </div>
       </nav>
     </>

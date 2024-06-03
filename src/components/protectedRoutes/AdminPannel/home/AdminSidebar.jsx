@@ -74,9 +74,9 @@ function AdminSidebar() {
     }
   };
   const addNew = (user) => {
-    if (user === "student") navigate("/newStudent");
-    if (user === "teacher") navigate("/newTeacher");
-    if (user === "admin") navigate("/newAdmin");
+    if (user === "student") navigate("/newstudent");
+    if (user === "teacher") navigate("/newteacher");
+    if (user === "admin") navigate("/newadmin");
   };
 
   return (

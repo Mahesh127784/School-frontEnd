@@ -5,7 +5,7 @@ import AdminDashboard from "./AdminDashboard";
 function Home() {
   return (
     <div>
-      <div className="min-h-[100vh] max-h-[100%]   bg-green-200 flex ">
+      <div className="min-h-[100vh] max-h-[100%]    flex ">
         <AdminSidebar />
         <AdminDashboard />
       </div>

@@ -5,8 +5,10 @@ import { setApplication } from "../../redux/features/admins/adminsSlice";
 
 function AdmissionForm() {
   const dispatch = useDispatch();
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
-    studentName: "",
+    firstName: "",
+    lastName: "",
     DOB: "",
     gender: "",
     address: "",
@@ -15,7 +17,7 @@ function AdmissionForm() {
     guardianName: "",
     guardianContact: "",
     previousSchool: "",
-    desiredClass: "",
+    desiredclassName: "",
     file: null,
   });
 
@@ -35,233 +37,192 @@ function AdmissionForm() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
     const response = await FormSubmit(formData);
     if (response) {
       dispatch(setApplication(response));
     }
+    setSubmitting(false);
   };
 
   return (
-    <div className="mx-3 md:mx-10 my-5 md:px-6 py-3 md:py-6 bg-pink-300 rounded-md shadow-2xl hover:shadow-slate-900 ">
-      <div className="text-center relative top-5  my-5 md:m-10 lg:my-0">
-        <h2 className="text-2xl   md:text-4xl font-bold underline ">
-          New Admission Form
-        </h2>
-      </div>
-      <form className="pl-5  lg:p-20" onSubmit={handleSubmit}>
-        {/* Student Name */}
-        <div className="md:mb-4  inline-block lg:mx-24 my-3 mx-5 ">
-          <label
-            htmlFor="studentName"
-            className="block text-gray-700 text-sm md:text-base font-bold mt-2"
-          >
-            Student Name *
-          </label>
-          <input
-            type="text"
-            id="studentName"
-            name="studentName"
-            value={formData.studentName}
-            onChange={handleChange}
-            className="w-[250px] lg:w-[400px] px-1 md:px-4 md:py-2 py-[2px] border rounded-md focus:outline-none focus:border-blue-950 text-sm md:text-base"
-          />
+    <div className="bg-gray-200 py-6">
+      <form className="max-w-4xl mx-auto" onSubmit={handleSubmit}>
+        <div className="shadow-2xl mb-5 overflow-hidden bg-white rounded-lg">
+          <h3 className="text-xl pl-6 p-2 bg-fuchsia-700 font-semibold text-white">
+            New Admission Form
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+            <div className="form-group">
+              <label className="block text-gray-700 font-medium mb-2">
+                First Name *
+              </label>
+              <input
+                type="text"
+                name="firstName"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                required
+                onChange={handleChange}
+                value={formData.firstName}
+              />
+            </div>
+            <div className="form-group">
+              <label className="block text-gray-700 font-medium mb-2">
+                Last Name *
+              </label>
+              <input
+                type="text"
+                name="lastName"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                required
+                onChange={handleChange}
+                value={formData.lastName}
+              />
+            </div>
+            <div className="form-group">
+              <label className="block text-gray-700 font-medium mb-2">
+                Date of Birth *
+              </label>
+              <input
+                type="date"
+                name="DOB"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                required
+                onChange={handleChange}
+                value={formData.DOB}
+              />
+            </div>
+            <div className="form-group">
+              <label className="block text-gray-700 font-medium mb-2">
+                Gender *
+              </label>
+              <select
+                required
+                name="gender"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                onChange={handleChange}
+                value={formData.gender}
+              >
+                <option value="">--- Select ---</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div className="form-group md:col-span-2">
+              <label className="block text-gray-700 font-medium mb-2">
+                Address *
+              </label>
+              <textarea
+                name="address"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                rows="3"
+                required
+                onChange={handleChange}
+                value={formData.address}
+              ></textarea>
+            </div>
+            <div className="form-group">
+              <label className="block text-gray-700 font-medium mb-2">
+                Phone Number *
+              </label>
+              <input
+                type="number"
+                name="contactNumber"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                onChange={handleChange}
+                value={formData.contactNumber}
+              />
+            </div>
+            <div className="form-group">
+              <label className="block text-gray-700 font-medium mb-2">
+                Email (Student's/Guardian's) *
+              </label>
+              <input
+                type="email"
+                name="email"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                required
+                onChange={handleChange}
+                value={formData.email}
+              />
+            </div>
+            <div className="form-group">
+              <label className="block text-gray-700 font-medium mb-2">
+                Guardian Name *
+              </label>
+              <input
+                type="text"
+                name="guardianName"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                onChange={handleChange}
+                value={formData.guardianName}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label className="block text-gray-700 font-medium mb-2">
+                Guardian Phone *
+              </label>
+              <input
+                type="number"
+                name="guardianContact"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                onChange={handleChange}
+                value={formData.guardianContact}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label className="block text-gray-700 font-medium mb-2">
+                Desired Grade *
+              </label>
+              <select
+                onChange={handleChange}
+                value={formData.desiredclassName}
+                required
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                name="desiredclassName"
+              >
+                <option value="">-- Select Class --</option>
+                {[...Array(12).keys()].map((number) => (
+                  <option key={number + 1} value={number + 1}>
+                    {number + 1}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group">
+              <label className="block text-gray-700 font-medium mb-2">
+                Previous School Name
+              </label>
+              <input
+                type="text"
+                name="previousSchool"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                onChange={handleChange}
+                value={formData.previousSchool}
+              />
+            </div>
+            <div className="form-group ">
+              <label className="block text-gray-700 font-medium mb-2">
+                Previous Class MarksCard *
+              </label>
+              <input
+                required
+                type="file"
+                name="file"
+                className="w-full px-1 md:px-4 py-2 border rounded-md "
+              />
+            </div>
+          </div>
         </div>
-
-        {/* Date of Birth */}
-        <div className="md:mb-4  inline-block lg:mx-24 my-3 mx-5">
-          <label
-            htmlFor="DOB"
-            className="block text-gray-700 text-sm md:text-base font-bold mt-2"
-          >
-            Date of Birth *
-          </label>
-          <input
-            type="date"
-            id="DOB"
-            name="DOB"
-            value={formData.DOB}
-            onChange={handleChange}
-            className="w-[250px] lg:w-[400px] px-1 md:px-4 md:py-2 py-[2px] border rounded-md focus:outline-none focus:border-blue-950 text-sm md:text-base"
-          />
-        </div>
-
-        {/* Gender */}
-        <div className="md:mb-4  inline-block lg:mx-24 my-3 mx-5">
-          <label
-            htmlFor="gender"
-            className="block text-gray-700 text-sm md:text-base font-bold mt-2"
-          >
-            Gender *
-          </label>
-          <select
-            id="gender"
-            name="gender"
-            value={formData.gender}
-            onChange={handleChange}
-            className="w-[250px] lg:w-[400px] px-1 md:px-4 md:py-2 py-[2px] border rounded-md focus:outline-none focus:border-blue-950 text-sm md:text-base"
-          >
-            <option value="">--- Select ---</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-
-        {/* Address */}
-        <div className="md:mb-4  inline-block lg:mx-24 my-3 mx-5">
-          <label
-            htmlFor="address"
-            className="block text-gray-700 text-sm md:text-base font-bold mt-2"
-          >
-            Address *
-          </label>
-          <textarea
-            id="address"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            rows="4"
-            className="w-[250px] lg:w-[400px] px-2 md:px-4 md:py-2 py-1 border rounded-md focus:outline-none focus:border-blue-950"
-          ></textarea>
-        </div>
-
-        {/* Contact Number */}
-        <div className="md:mb-4  inline-block lg:mx-24 my-3 mx-5">
-          <label
-            htmlFor="contactNumber"
-            className="block text-gray-700 text-sm md:text-base font-bold mt-2"
-          >
-            Contact Number *
-          </label>
-          <input
-            type="tel"
-            id="contactNumber"
-            name="contactNumber"
-            value={formData.contactNumber}
-            onChange={handleChange}
-            className="w-[250px] lg:w-[400px] px-1 md:px-4 md:py-2 py-[2px] border rounded-md focus:outline-none focus:border-blue-950 text-sm md:text-base"
-          />
-        </div>
-
-        {/* Email */}
-        <div className="md:mb-4  inline-block lg:mx-24 my-3 mx-5">
-          <label
-            htmlFor="email"
-            className="block text-gray-700 text-sm md:text-base font-bold mt-2"
-          >
-            Email *
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-[250px] lg:w-[400px] px-1 md:px-4 md:py-2 py-[2px] border rounded-md focus:outline-none focus:border-blue-950 text-sm md:text-base"
-          />
-        </div>
-
-        {/* Guardian Name */}
-        <div className="md:mb-4  inline-block lg:mx-24 my-3 mx-5">
-          <label
-            htmlFor="guardianName"
-            className="block text-gray-700 text-sm md:text-base font-bold mt-2"
-          >
-            Guardian Name *
-          </label>
-          <input
-            type="text"
-            id="guardianName"
-            name="guardianName"
-            value={formData.guardianName}
-            onChange={handleChange}
-            className="w-[250px] lg:w-[400px] px-1 md:px-4 md:py-2 py-[2px] border rounded-md focus:outline-none focus:border-blue-950 text-sm md:text-base"
-          />
-        </div>
-
-        {/* Guardian Contact */}
-        <div className="md:mb-4  inline-block lg:mx-24 my-3 mx-5 ">
-          <label
-            htmlFor="guardianContact"
-            className="block text-gray-700 font-medium mt-2 "
-          >
-            Guardian Contact *
-          </label>
-          <input
-            type="tel"
-            id="guardianContact"
-            name="guardianContact"
-            value={formData.guardianContact}
-            onChange={handleChange}
-            className="w-[250px] lg:w-[400px] px-1 md:px-4 md:py-2 py-[2px] border rounded-md focus:outline-none focus:border-blue-950 text-sm md:text-base"
-          />
-        </div>
-        {/* Desired Class */}
-        <div className="md:mb-4  inline-block lg:mx-24 my-3 mx-5">
-          <label
-            htmlFor="desiredClass"
-            className="block text-gray-700 text-sm md:text-base font-bold mt-2"
-          >
-            Desired Class *
-          </label>
-          <select
-            id="desiredClass"
-            name="desiredClass"
-            value={formData.desiredClass}
-            onChange={handleChange}
-            className="w-[250px] lg:w-[400px] px-1 md:px-4 md:py-2 py-[2px] border rounded-md focus:outline-none focus:border-blue-950 text-sm md:text-base"
-          >
-            <option value="">--- Select ---</option>
-            {/* Option values from 1 to 12 */}
-            {[...Array(12).keys()].map((value) => (
-              <option key={value} value={value + 1}>
-                {value + 1}
-              </option>
-            ))}
-          </select>
-        </div>
-        {/* Previous School */}
-        <div className="md:mb-4  inline-block lg:mx-24 my-3 mx-5">
-          <label
-            htmlFor="previousSchool"
-            className="block text-gray-700 text-sm md:text-base font-bold mt-2"
-          >
-            Previous School Name
-          </label>
-          <input
-            type="text"
-            id="previousSchool"
-            name="previousSchool"
-            value={formData.previousSchool}
-            onChange={handleChange}
-            className="w-[250px] lg:w-[400px] px-1 md:px-4 md:py-2 py-[2px] border rounded-md focus:outline-none focus:border-blue-950 text-sm md:text-base"
-          />
-        </div>
-
-        {/* Previous Class */}
-        <div className="md:mb-4 lg:mx-24 mx-5  my-3">
-          <label
-            htmlFor="file"
-            className="block text-gray-700 text-sm md:text-base font-bold mt-2"
-          >
-            Previous Class MarksCard *
-          </label>
-          <input
-            type="file"
-            id="file"
-            name="file"
-            onChange={handleChange}
-            className="w-[250px] lg:w-[400px] px-1 md:px-4 md:py-2 py-1 border rounded-md bg-pink-200 "
-          />
-        </div>
-
-        {/* Submit Button */}
-        <div className="text-center md:mt-20">
+        <div className="text-end my-5">
           <button
             type="submit"
-            className="w-[250px] lg:w-[400px] bg-blue-500 text-white py-1 md:py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300 "
+            className="px-12 py-2.5 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50"
           >
-            Submit
+            {submitting ? "Submitting..." : "Submit"}
           </button>
         </div>
       </form>

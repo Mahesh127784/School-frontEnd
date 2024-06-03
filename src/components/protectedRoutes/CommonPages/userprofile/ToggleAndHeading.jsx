@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Button, Modal } from "flowbite-react";
 
-const ToggleAndHeading = ({ logout }) => {
+const ToggleAndHeading = ({ logout, userName }) => {
   const [toggle, setToggle] = useState(true);
   const [logoutConfirm, setLogoutConfirm] = useState(false);
 
   return (
     <div className=" flex  ">
-      <div className="lg:w-72 md:w-36 w-16"></div>
+      <div className={userName ? "lg:w-64" : "lg:w-72 md:w-36 w-16"}></div>
       <h2 className="  md:text-3xl font-bold  underline mr-2 md:mr-8 lg:mr-40 ">
-        Admin Profile
+        {userName ? userName : "Admin"} Profile
       </h2>
       {toggle && (
         <div className="text-end  md:w-28 lg:w-36 w-[70px]">
@@ -54,7 +54,7 @@ const ToggleAndHeading = ({ logout }) => {
                   Are you sure you want to logout?
                 </h3>
                 <div className="flex justify-center gap-4">
-                  <Button color="failure" onClick={() => logout}>
+                  <Button color="failure" onClick={() => logout()}>
                     Yes
                   </Button>
                   <Button color="gray" onClick={() => setLogoutConfirm(false)}>

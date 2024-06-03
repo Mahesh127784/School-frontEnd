@@ -11,6 +11,7 @@ import {
 import RemoveMember from "../../../../../apis/removeMembers/RemoveMember";
 import AdminsList from "./tableLists/AdminsList";
 import { getAllUsers } from "../../../../../apis/getUsersData/allUsersData";
+import { toast } from "react-toastify";
 
 function AdminsTable() {
   const dispatch = useDispatch();
@@ -19,13 +20,13 @@ function AdminsTable() {
 
   const Delete = async (id) => {
     dispatch(deleteAdmin(id));
-    alert(await RemoveMember("admins", id));
+    await RemoveMember("admins", id);
   };
 
   const Edit = (member) => {
     dispatch(updateAdmin(""));
     dispatch(updateAdmin(member));
-    navigate("/UpdateAdmin");
+    navigate("/updateadmin");
   };
 
   useEffect(() => {
@@ -35,18 +36,18 @@ function AdminsTable() {
         dispatch(fetchAdmin(response.data.data));
       })();
     } catch (error) {
-      alert(error.message);
+      toast.error(error.message);
     }
   }, []);
 
   return (
-    <div className="md:flex gap-10 flex-wrap">
+    <div className="max-w-4xl mx-auto px-5">
       <AdminsList members={admins} deleteUser={Delete} updateUser={Edit} />
-      <div className="w-full lg:w-[400px] flex  items-center justify-center">
+      {/* <div className="w-full lg:w-[400px] flex  items-center justify-center">
         <div className=" md:mt-12 mx-center m-15">
           <Calendar />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

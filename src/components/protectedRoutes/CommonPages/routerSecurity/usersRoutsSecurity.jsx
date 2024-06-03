@@ -5,6 +5,7 @@ import { UserAuthentication } from "../../../../apis/handleAuthorization/HandleA
 import { UsersLogout } from "../../../../apis/handle_Login_Logout/HandleLoginLogout";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../../../../redux/features/user/userSlice";
+import { toast } from "react-toastify";
 
 const UsersRoutsSecurity = ({ userRole, setIsLoggedIn, Component }) => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const UsersRoutsSecurity = ({ userRole, setIsLoggedIn, Component }) => {
       const { accessToken, refreshToken } = tokens;
 
       if (!accessToken && !refreshToken) {
-        console.log("unautherized user");
+        toast.error("unautherized user!,Please login to continue");
         navigate("/login");
       } else {
         const response = await UserAuthentication(accessToken);
@@ -32,17 +33,23 @@ const UsersRoutsSecurity = ({ userRole, setIsLoggedIn, Component }) => {
             navigate("/login");
           } else {
             setTokens(newResponse);
-            // setIsLoggedIn(true);
+            // setIsLoggedIn(true); doesnt required as the state chagedthe code rerender witj new valid accesstkn
           }
         } else {
-          if (userRole === response.user) {
+          if (
+            userRole === response.user ||
+            (userRole === "Admin" && response.adminCode)
+          ) {
             setIsLoggedIn(true);
             dispatch(updateUser(response));
-          } else if (userRole === "Admin" && response.adminCode) {
-            setIsLoggedIn(true);
-            dispatch(updateUser(response));
-          } else {
-            console.log("unatherized");
+          }
+          //  else if (userRole === "Admin" && response.adminCode) {
+          //   setIsLoggedIn(true);
+          //   dispatch(updateUser(response));
+          // }
+          else {
+            //if the user is loggedin and trying to access diffrent role give error
+            toast.error("unatherized request,Please login to continue");
             //unautherized user
             setIsLoggedIn(false);
             navigate("/login");
@@ -59,10 +66,9 @@ const UsersRoutsSecurity = ({ userRole, setIsLoggedIn, Component }) => {
   }, [tokens.accessToken, tokens.refreshToken]);
 
   const logout = () => {
-    console.log("logout");
     UsersLogout();
     setIsLoggedIn(false);
-    navigate("/");
+    navigate("/login");
   };
 
   return <Component logout={logout} />;

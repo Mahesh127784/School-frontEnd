@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import NewAdminInput from "../inputForm/Admin.form";
-import axios from "axios";
 import handleApiError from "../../../../../utils/errorHandler/ApiErrors";
-
-const apiKey = process.env.REACT_APP_API_KEY;
+import { toast } from "react-toastify";
+import { newAdmin } from "../../../../../apis/newMemberEntry/newMemberEntry";
 
 function NewAdmin() {
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     adminName: "",
     adminCode: "",
@@ -19,13 +19,17 @@ function NewAdmin() {
     e.preventDefault();
     const { password, password2 } = formData;
     if (password !== password2) {
-      alert("Mismatch between both the passwords you are entering");
+      toast.error(
+        "Mismatch between both the passwords, Please enter correctly"
+      );
       return;
     }
-    try {
-      const response = await axios.post(`${apiKey}/admins/newAdmin`, formData);
+    setSubmitting(true);
 
-      alert(response.data.message);
+    try {
+      const response = await newAdmin(formData);
+
+      toast.success(response.message);
       setFormData({
         adminName: "",
         adminCode: "",
@@ -36,6 +40,8 @@ function NewAdmin() {
       });
     } catch (error) {
       handleApiError(error);
+    } finally {
+      setSubmitting(false);
     }
   };
   return (
@@ -43,6 +49,7 @@ function NewAdmin() {
       formData={formData}
       setFormData={setFormData}
       handleSubmit={handleSubmit}
+      loading={submitting}
     />
   );
 }

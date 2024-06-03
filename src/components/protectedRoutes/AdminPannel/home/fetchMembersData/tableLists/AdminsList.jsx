@@ -1,4 +1,5 @@
 import React from "react";
+import DeleteUser from "./deleteUser/DeleteUser";
 
 function AdminsList({ members, deleteUser, updateUser }) {
   return (
@@ -6,12 +7,12 @@ function AdminsList({ members, deleteUser, updateUser }) {
       <h2 className="text-lg md:text-2xl font-bold mb-2 md:mb-4 text-blue-700">
         Total Admins List
       </h2>
-      <table className="min-w-full bg-gray-500 border border-gray-300 text-white">
+      <table className="min-w-full bg-gray-500 border border-gray-300 ">
         <thead className="text-[6px] md:text-base">
           <tr>
             <th className="p-1 md:p-2 border-b">Name</th>
             <th className="p-1 md:p-2 border-b">Admin Code</th>
-            <th className="p-1 md:p-2 border-b">Work</th>
+            <th className="p-1 md:p-2 border-b">Role</th>
             <th className="p-1 md:p-2 border-b">Email</th>
             <th className="p-1 md:p-2 border-b">Actions</th>
           </tr>
@@ -28,10 +29,7 @@ function AdminsList({ members, deleteUser, updateUser }) {
                   onClick={() => updateUser(member)}
                   className="fa-solid fa-user-pen mr-2 text-green-300 cursor-pointer hover:transform hover:scale-125 transition-all duration-300 ease-in-out "
                 ></i>
-                <i
-                  onClick={() => deleteUser(member._id)}
-                  className="fa-solid fa-trash-can ml-2 text-orange-300 cursor-pointer hover:transform hover:scale-125 transition-all duration-300 ease-in-out "
-                ></i>
+                <DeleteUser deleteUser={deleteUser} member={member} />
               </td>
             </tr>
           ))}

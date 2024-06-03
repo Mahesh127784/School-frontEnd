@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import NewUserInput from "../inputForm/NewUserInput.form";
-import axios from "axios";
+import NewUserInput from "../inputForm/userform/UserForm";
 import { updateTeacher } from "../../../../../redux/features/teachers/teachersSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import handleApiError from "../../../../../utils/errorHandler/ApiErrors";
-const apiKey = process.env.REACT_APP_API_KEY;
+import { toast } from "react-toastify";
+import { updateTeacherDB } from "../../../../../apis/updatingUser/updateUser";
 
 export default function UpdateTeacher() {
+  const [submitting, setSubmitting] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let { updatingTeacher } = useSelector((state) => state.teachers);
@@ -15,33 +17,66 @@ export default function UpdateTeacher() {
     updatingTeacher = {
       teacherName: "",
       teacherId: "",
+      email: "",
+      contact: "",
+      address: "",
+      DOB: "",
       subject: "",
-      contactNumber: "",
+      university: "",
+      degree: "",
+      city: "",
+      startDate: "",
+      endDate: "",
       _id: "",
     };
   }
-  const { teacherName, teacherId, subject, contactNumber, _id } =
-    updatingTeacher;
-  const [formData, setFormData] = useState({
-    userName: teacherName,
-    userId: teacherId,
+  const {
+    teacherName,
+    teacherId,
+    email,
+    address,
+    DOB,
+    university,
+    degree,
+    city,
+    startDate,
+    endDate,
     subject,
-    contact: contactNumber,
+    contact,
+    _id,
+  } = updatingTeacher;
+
+  const [formData, setFormData] = useState({
+    firstName: teacherName.split(" ")[0] || "",
+    lastName: teacherName.split(" ")[1] || "",
+    userId: teacherId,
+    email,
+    address,
+    DOB: DOB?.slice(0, 10),
+    university,
+    degree,
+    city,
+    startDate: startDate?.slice(0, 10),
+    endDate: endDate?.slice(0, 10),
+    subject,
+    contact,
   });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
+
     try {
-      const response = await axios.put(
-        `${apiKey}/teachers/changedata/${_id}`,
-        formData
-      );
+      const response = await updateTeacherDB(formData, _id);
       dispatch(updateTeacher(response.data.data));
-      navigate("/adminHome");
-      alert(response.data.message);
+      navigate("/adminhome");
+      toast.success(response.message);
 
       // Reset the form after submission
     } catch (error) {
       handleApiError(error);
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -50,7 +85,8 @@ export default function UpdateTeacher() {
       formData={formData}
       setFormData={setFormData}
       handleSubmit={handleSubmit}
-      user={"TEACHER"}
+      loading={submitting}
+      user={"Teacher"}
     />
   );
 }

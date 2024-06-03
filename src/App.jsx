@@ -18,10 +18,15 @@ import UpdateAdmin from "./components/protectedRoutes/AdminPannel/home/updatemem
 import StudentsHome from "./components/protectedRoutes/StudentsPannel/home/Home.students.jsx";
 import TeachersHome from "./components/protectedRoutes/TeachersPannel/home/Home.teachers.jsx";
 import UsersRoutsSecurity from "./components/protectedRoutes/CommonPages/routerSecurity/usersRoutsSecurity.jsx";
-import Academics from "./components/protectedRoutes/AdminPannel/academics/Academics.home.jsx";
 import UserProfile from "./components/protectedRoutes/CommonPages/userprofile/UserProfile.jsx";
 import Notifications from "./components/protectedRoutes/AdminPannel/notifications/Notifications.home.jsx";
 import Help from "./components/protectedRoutes/CommonPages/help/Help.home.jsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Academics from "./components/protectedRoutes/CommonPages/academics/Academics.home.jsx";
+import TeachersClasses from "./components/protectedRoutes/TeachersPannel/teacherHome/Classes.jsx";
+import TeacherHelp from "./components/protectedRoutes/TeachersPannel/components/Help.jsx";
+import TeacherProfile from "./components/protectedRoutes/TeachersPannel/profile/TeacherProfile.jsx";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -44,13 +49,13 @@ function App() {
 
           {/* admission form route  */}
           <>
-            <Route path="/AdmissionForm" element={<AdmissionForm />} />
+            <Route path="/admissionform" element={<AdmissionForm />} />
           </>
 
           {/* protected admin routes */}
           <>
             <Route
-              path="/adminHome"
+              path="/adminhome"
               element={
                 <UsersRoutsSecurity
                   userRole={"Admin"}
@@ -60,7 +65,7 @@ function App() {
               }
             />
             <Route
-              path="/adminProfile"
+              path="/adminprofile"
               element={
                 <UsersRoutsSecurity
                   userRole={"Admin"}
@@ -70,7 +75,17 @@ function App() {
               }
             />
             <Route
-              path="/newStudent"
+              path="/userprofile"
+              element={
+                <UsersRoutsSecurity
+                  userRole={"Teacher"}
+                  Component={UserProfile}
+                  setIsLoggedIn={setIsLoggedIn}
+                />
+              }
+            />
+            <Route
+              path="/newstudent"
               element={
                 <UsersRoutsSecurity
                   userRole={"Admin"}
@@ -80,7 +95,7 @@ function App() {
               }
             />
             <Route
-              path="/newTeacher"
+              path="/newteacher"
               element={
                 <UsersRoutsSecurity
                   userRole={"Admin"}
@@ -90,7 +105,7 @@ function App() {
               }
             />
             <Route
-              path="/newAdmin"
+              path="/newadmin"
               element={
                 <UsersRoutsSecurity
                   userRole={"Admin"}
@@ -100,7 +115,7 @@ function App() {
               }
             />
             <Route
-              path="/UpdateAdmin"
+              path="/updateadmin"
               element={
                 <UsersRoutsSecurity
                   userRole={"Admin"}
@@ -110,7 +125,7 @@ function App() {
               }
             />
             <Route
-              path="/UpdateTeacher"
+              path="/updateteacher"
               element={
                 <UsersRoutsSecurity
                   userRole={"Admin"}
@@ -120,7 +135,7 @@ function App() {
               }
             />
             <Route
-              path="/UpdateStudent"
+              path="/updatestudent"
               element={
                 <UsersRoutsSecurity
                   userRole={"Admin"}
@@ -164,7 +179,7 @@ function App() {
           {/* //protected students routs */}
           <>
             <Route
-              path="/studentsHome"
+              path="/studenthome"
               element={
                 <UsersRoutsSecurity
                   Component={StudentsHome}
@@ -178,10 +193,40 @@ function App() {
           {/* protected teachers routs  */}
           <>
             <Route
-              path="/teachersHome"
+              path="/teacherhome"
               element={
                 <UsersRoutsSecurity
                   Component={TeachersHome}
+                  setIsLoggedIn={setIsLoggedIn}
+                  userRole={"Teacher"}
+                />
+              }
+            />
+            <Route
+              path="/teacherhelp"
+              element={
+                <UsersRoutsSecurity
+                  Component={TeacherHelp}
+                  setIsLoggedIn={setIsLoggedIn}
+                  userRole={"Teacher"}
+                />
+              }
+            />
+            <Route
+              path="/teacherprofile"
+              element={
+                <UsersRoutsSecurity
+                  Component={TeacherProfile}
+                  setIsLoggedIn={setIsLoggedIn}
+                  userRole={"Teacher"}
+                />
+              }
+            />
+            <Route
+              path="/techersClasses"
+              element={
+                <UsersRoutsSecurity
+                  Component={TeachersClasses}
                   setIsLoggedIn={setIsLoggedIn}
                   userRole={"Teacher"}
                 />
@@ -192,6 +237,7 @@ function App() {
 
         {isLoggedIn ? <div></div> : <Footer />}
       </Router>
+      <ToastContainer />
     </>
   );
 }

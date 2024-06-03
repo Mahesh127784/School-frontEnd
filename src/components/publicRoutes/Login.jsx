@@ -8,6 +8,7 @@ import handleApiError from "../../utils/errorHandler/ApiErrors";
 
 function Login({ logger }) {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const [creds, setCreds] = useState({
     userId: "",
@@ -17,40 +18,38 @@ function Login({ logger }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     // Check if the user is logging in as an Admin
-    if (logger === "Admin") {
-      try {
+    try {
+      if (logger === "Admin") {
         const response = await AdminLogin(creds);
-        console.log(response.message);
+
         const tokens = {
           refreshToken: response.data.accessToken,
           accessToken: response.data.refreshToken,
         };
         localStorage.setItem("tokens", JSON.stringify(tokens));
-        navigate("/adminHome");
-      } catch (error) {
-        handleApiError(error);
-      }
-    } else {
-      try {
+        navigate("/adminhome");
+      } else {
         const response = await UserLogin(creds);
         const user = response.data?.user?.user;
-        console.log(response.message);
         const tokens = {
           refreshToken: response.data.accessToken,
           accessToken: response.data.refreshToken,
         };
         localStorage.setItem("tokens", JSON.stringify(tokens));
         if (user === "Student") {
-          navigate("/studentsHome");
+          navigate("/studenthome");
         }
         if (user === "Teacher") {
-          navigate("/teachersHome");
+          navigate("/teacherhome");
         }
-      } catch (error) {
-        handleApiError(error);
       }
+    } catch (error) {
+      handleApiError(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -66,7 +65,7 @@ function Login({ logger }) {
               <div className="mb-2 md:mb-4">
                 <label
                   htmlFor="userId"
-                  className="block text-gray-700 font-medium mb:font-semibold mt-2"
+                  className="block text-gray-700 font-medium md:font-bold  mb-2"
                 >
                   Admin ID *
                 </label>
@@ -86,7 +85,7 @@ function Login({ logger }) {
             <div className="mb-2 md:mb-4">
               <label
                 htmlFor="email"
-                className="block text-gray-700 font-medium mb:font-semibold mt-2"
+                className="block text-gray-700 font-medium  md:font-bold  mb-2"
               >
                 {logger} Email *
               </label>
@@ -103,7 +102,7 @@ function Login({ logger }) {
             <div className="mb-2 md:mb-6">
               <label
                 htmlFor="password"
-                className="block text-gray-700 font-medium mb:font-semibold mt-2"
+                className="block text-gray-700 font-medium md:font-bold mb-2"
               >
                 Password *
               </label>
@@ -123,7 +122,7 @@ function Login({ logger }) {
               type="submit"
               className="mt-5  w-full bg-blue-500 text-white py-1 md:py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300"
             >
-              Login
+              {loading ? "Processsing..." : "Login"}
             </button>
           </form>
         </div>

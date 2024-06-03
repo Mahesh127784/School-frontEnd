@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 const apiKey = process.env.REACT_APP_API_KEY;
 axios.defaults.withCredentials = true;
 
@@ -19,15 +20,14 @@ async function UserAuthentication(data) {
       }
     );
     const resp = response?.data.success;
-    if (!resp) {
-      // alert("Please login to enter");
-      return resp;
-    }
+    if (!resp) toast.success("Please login to enter");
+    else toast.success(resp);
+
     return response.data.data;
   } catch (error) {
-    console.log(error?.response?.data?.message);
-    // alert(error.response.data.data || "Please login with properly to enter");
-    return false;
+    if (error?.response?.data?.message)
+      toast.error(error?.response?.data?.message);
+    else return false;
   }
 }
 export { UserAuthentication, tokensRefresher };

@@ -4,7 +4,7 @@ import StudentsTable from "./fetchMembersData/StudentsTable.jsx";
 import TeachersTable from "./fetchMembersData/TeachersTable.jsx";
 import AdminsTable from "./fetchMembersData/AdminsTable.jsx";
 import { useSelector } from "react-redux";
-import AdminNavbar from "../adminNavbar/AdminNavbar.jsx";
+import { AdminNavbar } from "../../CommonPages/userNavbar/UserNavbar.jsx";
 
 function AdminDashboard() {
   const { students, student } = useSelector((state) => state.students);
@@ -13,7 +13,7 @@ function AdminDashboard() {
   return (
     <div className="w-full pb-14 ">
       <AdminNavbar />
-      <div className=" flex justify-evenly flex-wrap h-fit gap-2 ">
+      <div className=" flex justify-evenly flex-wrap h-fit  ">
         <InfoCard
           title="Total Students"
           count={students.length}

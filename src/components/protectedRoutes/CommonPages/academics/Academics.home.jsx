@@ -1,13 +1,15 @@
 import React from "react";
-import AdminNavbar from "../adminNavbar/AdminNavbar";
+import {
+  AdminNavbar,
+  StudentNavbar,
+  TeacherNavbar,
+} from "../userNavbar/UserNavbar";
+import { useSelector } from "react-redux";
 
 const Academics = () => {
+  const { user } = useSelector((state) => state.user);
+
   const datas = [
-    {
-      title: "Financial Records",
-      color: "green",
-      logo: "fa-money-bill-trend-up",
-    },
     {
       title: "Exam",
       color: "orange",
@@ -23,18 +25,27 @@ const Academics = () => {
       color: "yellow",
       logo: "fa-laptop-file",
     },
-    {
-      title: "School Documents",
-      color: "blue",
-      logo: "fa-folder-open",
-    },
+
     {
       title: "Others",
       color: "purple",
       logo: "fa-mobile-screen-button",
     },
   ];
-
+  if (!user.user) {
+    datas.push(
+      {
+        title: "Financial Records",
+        color: "green",
+        logo: "fa-money-bill-trend-up",
+      },
+      {
+        title: "School Documents",
+        color: "blue",
+        logo: "fa-folder-open",
+      }
+    );
+  }
   const handleClick = (title) => {
     console.log(title);
   };
@@ -42,7 +53,9 @@ const Academics = () => {
   return (
     <div className="pb-11 h-full bg-green-200">
       <div>
-        <AdminNavbar />
+        {user.user === "Teacher" && <TeacherNavbar />}
+        {user.user === "Student" && <StudentNavbar />}
+        {!user.user && <AdminNavbar />}
       </div>
 
       <div className=" justify-center flex flex-wrap  ">

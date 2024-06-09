@@ -2,7 +2,7 @@ import React from "react";
 
 function EducationDetails({ formData, handleChange }) {
   return (
-    <div className="shadow-md  overflow-hidden bg-white rounded-lg ">
+    <div className="shadow-md  overflow-hidden bg-white mx-2 rounded-lg ">
       <h3 className="text-xl pl-6 p-2 bg-fuchsia-700 font-semibold   text-white">
         Education
       </h3>

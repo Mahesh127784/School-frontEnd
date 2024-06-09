@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AdminNavbar } from "../../CommonPages/userNavbar/UserNavbar";
+import AdminNavbar from "../adminNavbar/AdminNavbar";
 
 const Notifications = () => {
   const [open, setOpen] = useState({

@@ -4,7 +4,7 @@ import StudentsTable from "./fetchMembersData/StudentsTable.jsx";
 import TeachersTable from "./fetchMembersData/TeachersTable.jsx";
 import AdminsTable from "./fetchMembersData/AdminsTable.jsx";
 import { useSelector } from "react-redux";
-import { AdminNavbar } from "../../CommonPages/userNavbar/UserNavbar.jsx";
+import AdminNavbar from "../adminNavbar/AdminNavbar.jsx";
 
 function AdminDashboard() {
   const { students, student } = useSelector((state) => state.students);

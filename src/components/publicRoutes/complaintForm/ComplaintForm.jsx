@@ -11,7 +11,7 @@ function ComplaintForm({ handleSubmit, popup }) {
         {popup ? "Any Complaint?" : "Any suggestions/querries"}
       </h2>
       <form
-        className={`bg-pink-300 flex flex-col justify-center items-center p-8 md:p-10 rounded-md shadow-md w-72  md:w-96 ${
+        className={`bg-white flex flex-col justify-center items-center p-8 md:p-10 rounded-md shadow-xl w-72  md:w-96 ${
           !popup && "hover:transform hover:scale-105"
         } transition-all duration-1000  ease-in-out`}
         onSubmit={handleSubmit}
@@ -56,7 +56,7 @@ function ComplaintForm({ handleSubmit, popup }) {
             Message
           </label>
           <textarea
-            placeholder="This option is still not completed"
+            placeholder="Write your thoughts breefly.."
             name="message"
             rows={3}
             className="w-full px-2 md:px-4  md:py-2 py-1 border rounded-md focus:outline-none focus:border-blue-950"

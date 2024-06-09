@@ -12,13 +12,13 @@ function NewAdminInput(props) {
   };
 
   return (
-    <div className="bg-gray-200 h-screen py-6">
+    <div className="bg-gray-200 min-h-screen py-6">
       <h2 className="text-[26px] text-blue-900  font-bold mb-6 text-center">
         Admin's Form
       </h2>
       <div className="max-w-4xl mx-auto ">
         <form
-          className=" mb-5 overflow-hidden shadow-md bg-white rounded-lg"
+          className=" mx-2 mb-5 overflow-hidden shadow-md bg-white rounded-lg"
           onSubmit={handleSubmit}
         >
           <h3 className="text-xl pl-6 p-2 bg-fuchsia-700 font-semibold text-white">
@@ -116,16 +116,16 @@ function NewAdminInput(props) {
               />
             </div>
           </div>
+          <div className="text-center my-5">
+            <button
+              disabled={loading}
+              type="submit"
+              className="px-10 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50"
+            >
+              {loading ? "Submitting..." : "Submit"}
+            </button>
+          </div>
         </form>
-        <div className="text-center my-5">
-          <button
-            disabled={loading}
-            type="submit"
-            className="px-10 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50"
-          >
-            {loading ? "Submitting..." : "Submit"}
-          </button>
-        </div>
       </div>
     </div>
   );

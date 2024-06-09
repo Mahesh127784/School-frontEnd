@@ -19,6 +19,7 @@ async function UserAuthentication(data) {
         },
       }
     );
+
     const resp = response?.data.success;
     if (!resp) toast.success("Please login to enter");
     else toast.success(resp);
@@ -30,4 +31,5 @@ async function UserAuthentication(data) {
     else return false;
   }
 }
+
 export { UserAuthentication, tokensRefresher };

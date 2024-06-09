@@ -81,7 +81,7 @@ function AdminSidebar() {
 
   return (
     <>
-      <div className="bg-green-700 w-[120px] md:w-[250px] text-white text-center">
+      <div className="bg-green-700 fixed h-full w-[150px] md:w-[250px] text-white text-center">
         <div className="my-6">
           <h2 className="font-bold text-2xl md:text-5xl px-[1%] text-red-300">
             <i className="fa-solid fa-book-open text-slate-300 text-xl md:text-3xl mr-3 md:mr-4 "></i>
@@ -96,7 +96,7 @@ function AdminSidebar() {
 
         <div className="bg-yellow-300 h-[1px] mb-1"></div>
         <div className="bg-yellow-300 h-[1px] "></div>
-        <h5 className="my-3 md:my-6 md:mt-8 font-bold text-[10px] md:text-[18px] underline">
+        <h5 className="my-3 md:my-6 md:mt-8 font-bold text-[15px] md:text-[18px] underline">
           Admin Panel
         </h5>
 
@@ -107,7 +107,7 @@ function AdminSidebar() {
             className={`${category.bg} hover:bg-slate-800  py-2 md:py-5 flex flex-col gap-1 my-1`}
           >
             <p
-              className={`font-medium text-[10px] md:text-base cursor-pointer ${category.type} hover:text-blue-400`}
+              className={`font-medium text-[12px] md:text-base cursor-pointer ${category.type} hover:text-blue-400`}
             >
               {category.type === "teacher" && "Teacher's Data"}
               {category.type === "student" && "Students Data"}
@@ -124,14 +124,14 @@ function AdminSidebar() {
             <p
               onClick={() => addNew(category.type)}
               hidden={category.hidden}
-              className="text-[10px] md:text-base cursor-pointer hover:bg-slate-500  py-1 lg:py-2"
+              className="text-[12px] md:text-base cursor-pointer hover:bg-slate-500  py-1 lg:py-2"
             >
               Add
             </p>
             <p
               onClick={() => getData(category.type)}
               hidden={category.hidden}
-              className="text-[10px] md:text-base cursor-pointer hover:bg-slate-500 py-1 lg:py-2"
+              className="text-[12px] md:text-base cursor-pointer hover:bg-slate-500 py-1 lg:py-2"
             >
               Data
             </p>

@@ -42,12 +42,7 @@ const UsersRoutsSecurity = ({ userRole, setIsLoggedIn, Component }) => {
           ) {
             setIsLoggedIn(true);
             dispatch(updateUser(response));
-          }
-          //  else if (userRole === "Admin" && response.adminCode) {
-          //   setIsLoggedIn(true);
-          //   dispatch(updateUser(response));
-          // }
-          else {
+          } else {
             //if the user is loggedin and trying to access diffrent role give error
             toast.error("unatherized request,Please login to continue");
             //unautherized user

@@ -17,7 +17,7 @@ function UserForm({ setFormData, formData, user, handleSubmit, loading }) {
         {user === "Teacher" ? "Teacher's Form" : " Student's Form"}
       </h2>
       <form className="max-w-4xl mx-auto" onSubmit={handleSubmit}>
-        <div className="shadow-md mb-5 overflow-hidden bg-white rounded-lg">
+        <div className="shadow-md mb-5 overflow-hidden bg-white mx-2 rounded-lg">
           <h3 className="text-xl pl-6 p-2 bg-fuchsia-700 font-semibold text-white">
             Personal Details
           </h3>
@@ -166,7 +166,7 @@ function UserForm({ setFormData, formData, user, handleSubmit, loading }) {
         ) : (
           <EnrollmentDetails formData={formData} handleChange={handleChange} />
         )}
-        <div className="text-end my-5">
+        <div className="text-end my-5 mx-2">
           <button
             disabled={loading}
             type="submit"

@@ -1,11 +1,8 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import MiniProfile from "../../CommonPages/teacherAndStudent/HomePageItem/miniprofile/MiniProfile";
 
 const Sidebar = ({ transference }) => {
-  const navigate = useNavigate();
-  const { user } = useSelector((state) => state.user);
-
   const handleClick = () => {};
   return (
     <div
@@ -13,20 +10,7 @@ const Sidebar = ({ transference }) => {
         transference || ""
       } md:w-64 fixed  min-h-screen `}
     >
-      <div className="text-center mb-6  p-4">
-        <img
-          onClick={() => navigate("/teacherprofile")}
-          src={user.userImage}
-          alt="Profile"
-          className="rounded-full object-cover w-24 h-24 mx-auto cursor-pointer hover:border-2 border-fuchsia-700 "
-        />
-
-        <h2 className="mt-4 text-xl font-bold">
-          {user?.name?.charAt(0).toUpperCase() + user?.name?.slice(1) ||
-            "Guest"}
-        </h2>
-        <p>{user?.about || "guest"}</p>
-      </div>
+      <MiniProfile url={"/teacherprofile"} />
 
       <hr className=" border-black my-5 mx-4 " />
       <nav>
